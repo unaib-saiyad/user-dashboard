@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import SkeletonDetails from "../components/SkeletonDetails";
 import UserContext from "../context/UserContext";
@@ -6,7 +6,7 @@ import UserContext from "../context/UserContext";
 const UserDetails = () => {
   const { id } = useParams();
 
-  const { users, loading, error, setLoading } = useContext(UserContext);
+  const { users, loading, error } = useContext(UserContext);
 
   const user = users.find((u) => u.login.uuid === id);
 
