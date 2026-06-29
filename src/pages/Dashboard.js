@@ -1,10 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import UserCard from "../components/UserCard";
 import SkeletonCard from "../components/SkeletonCard";
 import UserContext from '../context/UserContext';
+import useDebounce from "../hooks/useDebounce";
 
 const Dashboard = () => {
   const { users, loading, error } = useContext(UserContext);
+  const [search, setSearch] = useState('');
+  const debouncedValue = useDebounce(search, 500);
+
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+      const fullname = `${user.name.title} ${user.name.first} ${user.name.last}`;
+
+      return fullname.toLowerCase().includes(debouncedValue.toLowerCase());
+    });
+  }, [users, debouncedValue]);
+
   if (error) {
     return (
       <div className="alert alert-danger text-center">
@@ -28,6 +40,8 @@ const Dashboard = () => {
               className="form-control"
               placeholder="Search users..."
               aria-label="Search users"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
           <button className="btn btn-primary btn-create-user">
@@ -45,14 +59,36 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-      ) : (
-        <div className="row g-4">
-          {users.map((user) => (
-            <div className="col-12 col-sm-6 col-lg-4 col-xl-3" key={user.login.uuid}>
-              <UserCard user={user} />
-            </div>
-          ))}
-        </div>
+      ) : (filteredUsers.length ?
+        (
+          <div className="row g-4">
+            {filteredUsers.map((user) => (
+              <div className="col-12 col-sm-6 col-lg-4 col-xl-3" key={user.login.uuid}>
+                <UserCard user={user} />
+              </div>
+            ))}
+          </div>
+        )
+        :
+        (
+          <div className="text-center py-5">
+            <i className="bi bi-search display-1 text-secondary"></i>
+
+            <h3 className="mt-3">No Users Found</h3>
+
+            <p className="text-muted mb-4">
+              We couldn't find any users matching your search.
+            </p>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => setSearch("")}
+            >
+              Clear Search
+            </button>
+          </div>
+
+        )
       )}
     </div>
   );
