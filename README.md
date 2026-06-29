@@ -1,70 +1,196 @@
-# Getting Started with Create React App
+# Users Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive React application that displays a list of users fetched from the Random User API. The application allows users to browse profiles, search users by name, view detailed information, and create new users locally without a backend.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+* Display users in a responsive card layout
+* Search users by name
+* View detailed information for each user
+* Client-side Create New User functionality
+* Global state management using React Context API
+* Responsive design using Bootstrap 5
+* Skeleton loading while fetching data
+* Error handling with retry option
+* No Users Found state for search results
+* React Router DOM for navigation
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* React (Functional Components & Hooks)
+* React Context API
+* React Router DOM
+* Bootstrap 5
+* Bootstrap Icons
+* Fetch API
+* CSS
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Folder Structure
 
-### `npm run build`
+```text
+src
+│
+├── components
+│   ├── CreateUserModal
+│   ├── UserCard
+│   ├── UserForm
+│   ├── SkeletonCard
+│   ├── SkeletonDetails
+│   └── NoUsersFound
+│
+├── context
+│   ├── UserContext
+│   └── UserProvider
+│
+├── pages
+│   ├── Dashboard
+│   └── UserDetails
+│
+├── services
+│   └── userService
+│
+├── hooks
+│   └── useDebounce
+│
+├── App.js
+└── index.js
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Environment Variables
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Create a `.env` file in the project root.
 
-### `npm run eject`
+```env
+REACT_APP_API_URL=https://randomuser.me/api
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Clone the repository.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+git clone https://github.com/unaib-saiyad/user-dashboard.git
+```
 
-## Learn More
+Move into the project directory.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+cd users-dashboard
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Install dependencies.
 
-### Code Splitting
+```bash
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Start the development server.
 
-### Analyzing the Bundle Size
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The application will run on:
 
-### Making a Progressive Web App
+```
+http://localhost:3000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+User data is fetched from:
 
-### Deployment
+https://randomuser.me/api
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The API URL is managed through environment variables for easy configuration.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Available Features
+
+### Dashboard
+
+* Displays all users
+* Responsive Bootstrap card layout
+* Search users by name
+* Skeleton loading
+* Error handling
+* Empty search state
+* Create New User button
+
+### User Details
+
+Displays detailed information including:
+
+* Profile picture
+* Full name
+* Gender
+* Age
+* Nationality
+* Email
+* Phone
+* Cell number
+* Address
+* Geographic coordinates
+* Timezone information
+
+### Create New User
+
+* Client-side only
+* Adds a new user to the global Context state
+* No backend persistence
+
+---
+
+## State Management
+
+The application uses **React Context API** to maintain a global list of users.
+
+The users are fetched once during application initialization and shared across all pages.
+
+---
+
+## Routing
+
+| Route       | Description  |
+| ----------- | ------------ |
+| `/`         | Dashboard    |
+| `/user/:id` | User Details |
+
+---
+
+## Future Improvements
+
+* Edit User
+* Delete User
+* Pagination
+* Server-side Search
+* Dark Mode
+* Image Upload for New Users
+* Form Validation using React Hook Form
+* Unit Testing
+
+---
+
+## Screenshots
+
+* Dashboard : ![alt text](screenshots/dashboard.png)
+* User Details : ![alt text](screenshots/user-details.png)
+* Create User Modal : ![alt text](screenshots/create-user.png)
+* Mobile View : ![alt text](screenshots/mobile-view.png)
+
+---
+
+## Author
+
+Developed by **Saiyad Unaib**

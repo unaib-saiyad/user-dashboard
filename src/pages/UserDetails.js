@@ -7,17 +7,8 @@ const UserDetails = () => {
   const { id } = useParams();
 
   const { users, loading, error, setLoading } = useContext(UserContext);
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      const foundUser = users.find((u) => u.login.uuid === id) || null;
-      setUser(foundUser);
-      setLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, [id]);
+  const user = users.find((u) => u.login.uuid === id);
 
   if (loading) {
     return (
